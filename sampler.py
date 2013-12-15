@@ -1,15 +1,21 @@
 import csv
-import sys
+import datetime
 
-obamaID = "P80003338"
-mccainID = "P80002801" 
+##sample large data set to extract only Obama and McCain donations
+file = csv.DictReader(open('small_sample.csv', 'r'))
+frontrunner = ['P80003338', 'P80002801']
+extraction = []
 
-with file(sys.argv[1], 'r') as f:
-    for line in f:
-        if obamaID or mccainID in item:
-            print line[:-1]
-			
+for line in file:
+    for i in frontrunner:
+        if i in line:
+            extraction.append(line[:-1])
+print extraction
 
-
+##output new array into csv
+with open("frontrunnerdata.csv", 'wb') as f:
+    writer = csv.writer(f)
+    writer.writerows(extraction)
+f.close()
 
 
